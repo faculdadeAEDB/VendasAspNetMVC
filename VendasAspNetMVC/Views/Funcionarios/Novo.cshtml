@@ -2,6 +2,63 @@
 @{
     ViewBag.Title = "Novo";
 }
+<hr />
+<center><h2>Novo Funcionário</h2></center>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form>
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                <input class="form-control input-lg"
+                       type="text"
+                       id="nome"
+                       name="funcionario.Nome"
+                       onkeyup="bind('nome')"
+                       required />
+            </div>
 
-<h2>Novo</h2>
+            <div class="form-group">
+                <label for="sobrenome">Sobrenome</label>
+                <input class="form-control input-lg"
+                       type="text"
+                       id="sobrenome"
+                       name="funcionario.Sobrenome"
+                       onkeyup="bind('sobrenome')"
+                       required />
+            </div>
 
+            <div class="form-group">
+                <label for="quantidade">Cargo</label>
+                <select class="form-control" name="funcionario.cargo">
+                    <option value="Entregador">Entregador</option>
+                    <option value="Empacotador">Empacotador</option>
+                    <option value="Motorista">Motorista</option>
+                    <option value="Vendedor">Vendedor</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="salario">Salário</label>
+                <input class="form-control input-lg"
+                       type="text"
+                       id="salario"
+                       name="funcionario.Salario"
+                       onkeyup="bind('sobrenome')"
+                       required />
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-lg btn-success">Salvar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function bind(attrNome) {
+        console.log(attrNome);
+        var attr = document.getElementById(attrNome).value;
+        document.getElementById('attr-' + attrNome).innerText = attr;
+    }
+</script>
