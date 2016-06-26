@@ -1,0 +1,70 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<hr />
+<div class="row">
+    <div class="col-xs-12">
+        <div class="btn-group btn-group-lg" role="group" aria-label="controles dos produtos">
+            <a href="@Url.Action("Novo")" class="btn btn-default btn-lg">Novo Produto</a>
+        </div>
+    </div>
+</div>
+<hr />
+<h2>Listagem de Produtos</h2>
+<hr />
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>Preço</th>
+            <th>Quantidade</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr id="produto1">
+            <td>01</td>
+            <td>Biclicleta</td>
+            <td>R$200,00</td>
+            <td class="produto-qtd">100</td>
+            <td>
+                <div class="btn-group" role="group" aria-label="...">
+                    <button type="button" class="btn btn-success" onclick="incrementa(1)">
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="btn btn-danger" onclick="decrementa(1)">
+                        <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="btn btn-default">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="btn btn-danger">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<script>
+    function decrementa(id) {
+        // TODO: Fazer ajax para diminuir quantidade no banco
+        var row = document.getElementById('produto' + id);
+        var colunaQuantidade = row.querySelector('.produto-qtd');
+        colunaQuantidade.innerText = Number(colunaQuantidade.innerText) - 1;
+        console.log(colunaQuantidade);
+    }
+
+    function incrementa(id) {
+        // TODO: Fazer ajax para aumentar quantidade no banco
+        var row = document.getElementById('produto' + id);
+        var colunaQuantidade = row.querySelector('.produto-qtd');
+        colunaQuantidade.innerText = Number(colunaQuantidade.innerText) + 1;
+        console.log(colunaQuantidade);
+    }
+</script>
+

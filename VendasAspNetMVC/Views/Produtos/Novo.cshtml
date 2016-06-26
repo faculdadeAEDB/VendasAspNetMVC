@@ -1,0 +1,104 @@
+﻿
+@{
+    ViewBag.Title = "Novo";
+}
+<hr />
+<center><h2>Novo Produto</h2></center>
+<hr />
+<div class="row">
+    <div class="col-md-5">
+        <form>
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                <input
+                    class="form-control input-lg"
+                    type="text"
+                    id="nome"
+                    name="produto.Nome"
+                    onkeyup="bind('nome')"
+                    required
+                />
+            </div>
+
+            <div class="form-group">
+                <label for="preco">Preço</label>
+                <input
+                    class="form-control input-lg"
+                    type="text"
+                    id="preco"
+                    name="produto.Preco"
+                    onkeyup="bind('preco')"
+                    required
+                />
+            </div>
+
+            <div class="form-group">
+                <label for="quantidade">Quantidade</label>
+                <input
+                    class="form-control input-lg"
+                    type="number" id="quantidade"
+                    name="produto.Quantidade"
+                    onkeyup="bind('quantidade')"
+                    onchange="bind('quantidade')"
+                    required
+                />
+            </div>
+
+            <div class="form-group">
+                <label for="descricao">Descrição</label>
+                <input
+                    class="form-control input-lg"
+                    type="text"
+                    id="descricao"
+                    name="produto.Descricao"
+                    onkeyup="bind('descricao')"
+                    required
+                />
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-lg btn-success">Salvar</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-7">
+        <center><h2>Ficha do Produto:</h2></center>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Atributo</th>
+                    <th>Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><h3>Nome:</h3></td>
+                    <td><h3 id="attr-nome"></h3></td>
+                </tr>
+
+                <tr>
+                    <td><h3>Preço:</h3></td>
+                    <td><h3 id="attr-preco"></h3></td>
+                </tr>
+
+                <tr>
+                    <td><h3>Quantidade:</h3></td>
+                    <td><h3 id="attr-quantidade"></h3></td>
+                </tr>
+
+                <tr>
+                    <td><h3>Descrição:</h3></td>
+                    <td><h3 id="attr-descricao"></h3></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    function bind(attrNome) {
+        console.log(attrNome);
+        var attr = document.getElementById(attrNome).value;
+        document.getElementById('attr-' + attrNome).innerText = attr;
+    }
+</script>
