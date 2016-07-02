@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="98d8b28e96194af4913c478d08a05441" Name="Diagram1">
+        <EntityTypeShape EntityType="vendasdbModel.CLIENTE" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="vendasdbModel.FUNCIONARIO" Width="1.5" PointX="0.75" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="vendasdbModel.ITEMVENDA" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="vendasdbModel.PRODUTO" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="vendasdbModel.VENDA" Width="1.5" PointX="6" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="vendasdbModel.FK_VENDA_CLIENTE" ManuallyRouted="false" />
+        <AssociationConnector Association="vendasdbModel.FK_ITEMVENDA_fUNCIONARIO" ManuallyRouted="false" />
+        <AssociationConnector Association="vendasdbModel.FK_VENDA_FUNCIONARIO" ManuallyRouted="false" />
+        <AssociationConnector Association="vendasdbModel.FK_ITEMVENDA_PRODUTO" ManuallyRouted="false" />
+        <AssociationConnector Association="vendasdbModel.FK_ITEMVENDA_VENDA" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

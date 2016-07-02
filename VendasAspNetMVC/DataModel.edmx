@@ -1,0 +1,390 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="vendasdbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CLIENTE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="CliNome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CliEndereco" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CliBairro" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CliCidade" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="CliTelefone" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="FUNCIONARIO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="FunNome" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="FunEndereco" Type="datetime" Nullable="false" />
+          <Property Name="FunTelefone" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FunCargo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FunCPF" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ITEMVENDA">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Venda" Type="int" Nullable="false" />
+          <Property Name="ID_Produto" Type="int" Nullable="false" />
+          <Property Name="ID_Funcionario" Type="int" Nullable="false" />
+          <Property Name="IVValorVenda" Type="money" Nullable="false" />
+          <Property Name="IVQtd" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PRODUTO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ProDescricao" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="ProNome" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ProPrecoCompra" Type="money" Nullable="false" />
+          <Property Name="ProQtdEstoque" Type="money" Nullable="false" />
+          <Property Name="ProPercLucro" Type="money" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VENDA">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID_Cliente" Type="int" Nullable="false" />
+          <Property Name="ID_Funcionario" Type="int" Nullable="false" />
+          <Property Name="VenData" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ITEMVENDA_fUNCIONARIO">
+          <End Role="FUNCIONARIO" Type="Self.FUNCIONARIO" Multiplicity="1" />
+          <End Role="ITEMVENDA" Type="Self.ITEMVENDA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FUNCIONARIO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ITEMVENDA">
+              <PropertyRef Name="ID_Funcionario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ITEMVENDA_PRODUTO">
+          <End Role="PRODUTO" Type="Self.PRODUTO" Multiplicity="1" />
+          <End Role="ITEMVENDA" Type="Self.ITEMVENDA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUTO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ITEMVENDA">
+              <PropertyRef Name="ID_Produto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ITEMVENDA_VENDA">
+          <End Role="VENDA" Type="Self.VENDA" Multiplicity="1" />
+          <End Role="ITEMVENDA" Type="Self.ITEMVENDA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VENDA">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ITEMVENDA">
+              <PropertyRef Name="ID_Venda" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VENDA_CLIENTE">
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="1" />
+          <End Role="VENDA" Type="Self.VENDA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VENDA">
+              <PropertyRef Name="ID_Cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VENDA_FUNCIONARIO">
+          <End Role="FUNCIONARIO" Type="Self.FUNCIONARIO" Multiplicity="1" />
+          <End Role="VENDA" Type="Self.VENDA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FUNCIONARIO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VENDA">
+              <PropertyRef Name="ID_Funcionario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="vendasdbModelStoreContainer">
+          <EntitySet Name="CLIENTE" EntityType="Self.CLIENTE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FUNCIONARIO" EntityType="Self.FUNCIONARIO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ITEMVENDA" EntityType="Self.ITEMVENDA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PRODUTO" EntityType="Self.PRODUTO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VENDA" EntityType="Self.VENDA" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ITEMVENDA_fUNCIONARIO" Association="Self.FK_ITEMVENDA_fUNCIONARIO">
+            <End Role="FUNCIONARIO" EntitySet="FUNCIONARIO" />
+            <End Role="ITEMVENDA" EntitySet="ITEMVENDA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ITEMVENDA_PRODUTO" Association="Self.FK_ITEMVENDA_PRODUTO">
+            <End Role="PRODUTO" EntitySet="PRODUTO" />
+            <End Role="ITEMVENDA" EntitySet="ITEMVENDA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ITEMVENDA_VENDA" Association="Self.FK_ITEMVENDA_VENDA">
+            <End Role="VENDA" EntitySet="VENDA" />
+            <End Role="ITEMVENDA" EntitySet="ITEMVENDA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VENDA_CLIENTE" Association="Self.FK_VENDA_CLIENTE">
+            <End Role="CLIENTE" EntitySet="CLIENTE" />
+            <End Role="VENDA" EntitySet="VENDA" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VENDA_FUNCIONARIO" Association="Self.FK_VENDA_FUNCIONARIO">
+            <End Role="FUNCIONARIO" EntitySet="FUNCIONARIO" />
+            <End Role="VENDA" EntitySet="VENDA" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="vendasdbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CLIENTE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="CliNome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CliEndereco" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CliBairro" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CliCidade" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CliTelefone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="VENDAs" Relationship="Self.FK_VENDA_CLIENTE" FromRole="CLIENTE" ToRole="VENDA" />
+        </EntityType>
+        <EntityType Name="FUNCIONARIO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="FunNome" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FunEndereco" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FunTelefone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FunCargo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FunCPF" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ITEMVENDAs" Relationship="Self.FK_ITEMVENDA_fUNCIONARIO" FromRole="FUNCIONARIO" ToRole="ITEMVENDA" />
+          <NavigationProperty Name="VENDAs" Relationship="Self.FK_VENDA_FUNCIONARIO" FromRole="FUNCIONARIO" ToRole="VENDA" />
+        </EntityType>
+        <EntityType Name="ITEMVENDA">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Venda" Type="Int32" Nullable="false" />
+          <Property Name="ID_Produto" Type="Int32" Nullable="false" />
+          <Property Name="ID_Funcionario" Type="Int32" Nullable="false" />
+          <Property Name="IVValorVenda" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="IVQtd" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="FUNCIONARIO" Relationship="Self.FK_ITEMVENDA_fUNCIONARIO" FromRole="ITEMVENDA" ToRole="FUNCIONARIO" />
+          <NavigationProperty Name="PRODUTO" Relationship="Self.FK_ITEMVENDA_PRODUTO" FromRole="ITEMVENDA" ToRole="PRODUTO" />
+          <NavigationProperty Name="VENDA" Relationship="Self.FK_ITEMVENDA_VENDA" FromRole="ITEMVENDA" ToRole="VENDA" />
+        </EntityType>
+        <EntityType Name="PRODUTO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ProDescricao" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProNome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProPrecoCompra" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="ProQtdEstoque" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="ProPercLucro" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="ITEMVENDAs" Relationship="Self.FK_ITEMVENDA_PRODUTO" FromRole="PRODUTO" ToRole="ITEMVENDA" />
+        </EntityType>
+        <EntityType Name="VENDA">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Cliente" Type="Int32" Nullable="false" />
+          <Property Name="ID_Funcionario" Type="Int32" Nullable="false" />
+          <Property Name="VenData" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="CLIENTE" Relationship="Self.FK_VENDA_CLIENTE" FromRole="VENDA" ToRole="CLIENTE" />
+          <NavigationProperty Name="FUNCIONARIO" Relationship="Self.FK_VENDA_FUNCIONARIO" FromRole="VENDA" ToRole="FUNCIONARIO" />
+          <NavigationProperty Name="ITEMVENDAs" Relationship="Self.FK_ITEMVENDA_VENDA" FromRole="VENDA" ToRole="ITEMVENDA" />
+        </EntityType>
+        <Association Name="FK_VENDA_CLIENTE">
+          <End Role="CLIENTE" Type="Self.CLIENTE" Multiplicity="1" />
+          <End Role="VENDA" Type="Self.VENDA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CLIENTE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VENDA">
+              <PropertyRef Name="ID_Cliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ITEMVENDA_fUNCIONARIO">
+          <End Role="FUNCIONARIO" Type="Self.FUNCIONARIO" Multiplicity="1" />
+          <End Role="ITEMVENDA" Type="Self.ITEMVENDA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FUNCIONARIO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ITEMVENDA">
+              <PropertyRef Name="ID_Funcionario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VENDA_FUNCIONARIO">
+          <End Role="FUNCIONARIO" Type="Self.FUNCIONARIO" Multiplicity="1" />
+          <End Role="VENDA" Type="Self.VENDA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FUNCIONARIO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="VENDA">
+              <PropertyRef Name="ID_Funcionario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ITEMVENDA_PRODUTO">
+          <End Role="PRODUTO" Type="Self.PRODUTO" Multiplicity="1" />
+          <End Role="ITEMVENDA" Type="Self.ITEMVENDA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PRODUTO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ITEMVENDA">
+              <PropertyRef Name="ID_Produto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ITEMVENDA_VENDA">
+          <End Role="VENDA" Type="Self.VENDA" Multiplicity="1" />
+          <End Role="ITEMVENDA" Type="Self.ITEMVENDA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="VENDA">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ITEMVENDA">
+              <PropertyRef Name="ID_Venda" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="vendasdbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CLIENTEs" EntityType="Self.CLIENTE" />
+          <EntitySet Name="FUNCIONARIOs" EntityType="Self.FUNCIONARIO" />
+          <EntitySet Name="ITEMVENDAs" EntityType="Self.ITEMVENDA" />
+          <EntitySet Name="PRODUTOes" EntityType="Self.PRODUTO" />
+          <EntitySet Name="VENDAs" EntityType="Self.VENDA" />
+          <AssociationSet Name="FK_VENDA_CLIENTE" Association="Self.FK_VENDA_CLIENTE">
+            <End Role="CLIENTE" EntitySet="CLIENTEs" />
+            <End Role="VENDA" EntitySet="VENDAs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ITEMVENDA_fUNCIONARIO" Association="Self.FK_ITEMVENDA_fUNCIONARIO">
+            <End Role="FUNCIONARIO" EntitySet="FUNCIONARIOs" />
+            <End Role="ITEMVENDA" EntitySet="ITEMVENDAs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VENDA_FUNCIONARIO" Association="Self.FK_VENDA_FUNCIONARIO">
+            <End Role="FUNCIONARIO" EntitySet="FUNCIONARIOs" />
+            <End Role="VENDA" EntitySet="VENDAs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ITEMVENDA_PRODUTO" Association="Self.FK_ITEMVENDA_PRODUTO">
+            <End Role="PRODUTO" EntitySet="PRODUTOes" />
+            <End Role="ITEMVENDA" EntitySet="ITEMVENDAs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ITEMVENDA_VENDA" Association="Self.FK_ITEMVENDA_VENDA">
+            <End Role="VENDA" EntitySet="VENDAs" />
+            <End Role="ITEMVENDA" EntitySet="ITEMVENDAs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="vendasdbModelStoreContainer" CdmEntityContainer="vendasdbEntities">
+          <EntitySetMapping Name="CLIENTEs">
+            <EntityTypeMapping TypeName="vendasdbModel.CLIENTE">
+              <MappingFragment StoreEntitySet="CLIENTE">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="CliNome" ColumnName="CliNome" />
+                <ScalarProperty Name="CliEndereco" ColumnName="CliEndereco" />
+                <ScalarProperty Name="CliBairro" ColumnName="CliBairro" />
+                <ScalarProperty Name="CliCidade" ColumnName="CliCidade" />
+                <ScalarProperty Name="CliTelefone" ColumnName="CliTelefone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FUNCIONARIOs">
+            <EntityTypeMapping TypeName="vendasdbModel.FUNCIONARIO">
+              <MappingFragment StoreEntitySet="FUNCIONARIO">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FunNome" ColumnName="FunNome" />
+                <ScalarProperty Name="FunEndereco" ColumnName="FunEndereco" />
+                <ScalarProperty Name="FunTelefone" ColumnName="FunTelefone" />
+                <ScalarProperty Name="FunCargo" ColumnName="FunCargo" />
+                <ScalarProperty Name="FunCPF" ColumnName="FunCPF" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ITEMVENDAs">
+            <EntityTypeMapping TypeName="vendasdbModel.ITEMVENDA">
+              <MappingFragment StoreEntitySet="ITEMVENDA">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ID_Venda" ColumnName="ID_Venda" />
+                <ScalarProperty Name="ID_Produto" ColumnName="ID_Produto" />
+                <ScalarProperty Name="ID_Funcionario" ColumnName="ID_Funcionario" />
+                <ScalarProperty Name="IVValorVenda" ColumnName="IVValorVenda" />
+                <ScalarProperty Name="IVQtd" ColumnName="IVQtd" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PRODUTOes">
+            <EntityTypeMapping TypeName="vendasdbModel.PRODUTO">
+              <MappingFragment StoreEntitySet="PRODUTO">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ProDescricao" ColumnName="ProDescricao" />
+                <ScalarProperty Name="ProNome" ColumnName="ProNome" />
+                <ScalarProperty Name="ProPrecoCompra" ColumnName="ProPrecoCompra" />
+                <ScalarProperty Name="ProQtdEstoque" ColumnName="ProQtdEstoque" />
+                <ScalarProperty Name="ProPercLucro" ColumnName="ProPercLucro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VENDAs">
+            <EntityTypeMapping TypeName="vendasdbModel.VENDA">
+              <MappingFragment StoreEntitySet="VENDA">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ID_Cliente" ColumnName="ID_Cliente" />
+                <ScalarProperty Name="ID_Funcionario" ColumnName="ID_Funcionario" />
+                <ScalarProperty Name="VenData" ColumnName="VenData" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
