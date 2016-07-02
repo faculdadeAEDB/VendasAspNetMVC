@@ -202,6 +202,7 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CLIENTEsController.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Produto.cs" />
@@ -290,6 +291,11 @@
     <Content Include="Views\Produtos\Novo.cshtml" />
     <Content Include="Views\Funcionarios\Index.cshtml" />
     <Content Include="Views\Funcionarios\Novo.cshtml" />
+    <Content Include="Views\CLIENTEs\Create.cshtml" />
+    <Content Include="Views\CLIENTEs\Delete.cshtml" />
+    <Content Include="Views\CLIENTEs\Details.cshtml" />
+    <Content Include="Views\CLIENTEs\Edit.cshtml" />
+    <Content Include="Views\CLIENTEs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

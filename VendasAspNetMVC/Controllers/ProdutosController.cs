@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using VendasAspNetMVC.Models;
 
 namespace VendasAspNetMVC.Controllers
 {
@@ -28,17 +29,19 @@ namespace VendasAspNetMVC.Controllers
 
         // POST: Produtos/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(PRODUTO produto)
         {
             try
             {
                 // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                vendasdbEntities db = new vendasdbEntities();
+                db.PRODUTOes.Add(produto);
+                db.SaveChanges();
+                return RedirectToAction("Index", "ProdutosController");
             }
             catch
             {
-                return View();
+                return View("Novo");
             }
         }
 
